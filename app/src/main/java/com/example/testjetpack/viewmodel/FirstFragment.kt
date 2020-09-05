@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.testjetpack.R
+import com.example.testjetpack.model.Person
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_first.*
 
@@ -28,7 +29,17 @@ class FirstFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         button1.setOnClickListener {
-            findNavController().navigate(R.id.action_firstFragment_to_blankFragment2)
+            // 無參數單存轉換畫面
+//            findNavController().navigate(R.id.action_firstFragment_to_blankFragment2)
+
+            // 新的參數型態model 需要打包(Parcelable)或序列化(Seralizable)
+            val person = Person(input_name.toString(), input_age.toString().toInt())
+            // 包含參數的目的地傳遞
+            val action =
+                FirstFragmentDirections.actionFirstFragmentToBlankFragment2(person)
+            findNavController().navigate(action)
+
+
         }
 
     }
